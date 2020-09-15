@@ -11,15 +11,11 @@ function pairwise(arr, arg) {
     if (map.has(y) && map.get(y).length > 0) {
       var j = map.get(y).shift();
       total += i + j;
-      return;
-    }
-
-    if (map.has(x)) {
+    } else if (map.has(x)) {
       map.get(x).push(i);
-      return;
+    } else {
+      map.set(x, [i]);
     }
- 
-    map.set(x, [i]); 
   });
   
   return total;

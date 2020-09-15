@@ -4,24 +4,23 @@
 function pairwise(arr, arg) {
   var map = new Map();
   var total = 0;
-  
-  for (let i = 0; i < arr.length; i++) {
-    var x = arr[i];
+
+  arr.forEach((x,i) => {
     var y = arg - x; // x+y = arg, find y
- 
+
     if (map.has(y) && map.get(y).length > 0) {
       var j = map.get(y).shift();
       total += i + j;
-      continue;
+      return;
     }
 
     if (map.has(x)) {
       map.get(x).push(i);
-      continue;
+      return;
     }
  
-    map.set(x, [i]);
-  }
-
+    map.set(x, [i]); 
+  });
+  
   return total;
 }

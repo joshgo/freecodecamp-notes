@@ -2,30 +2,25 @@
 // O(n) runtime
 
 function pairwise(arr, arg) {
-
   var map = new Map();
-  for (let i = 0; i < arr.length; i++) {
-    var val = arr[i];
-    if (map.has(val)) {
-      map.get(val).push(i);
-    } else {
-      map.set(val, [i]);
-    }
-  }
-
   var total = 0;
+  
   for (let i = 0; i < arr.length; i++) {
-    var val = arr[i];
-    var pair = arg - val;
+    var x = arr[i];
+    var y = arg - x; // x+y = arg, find y
+ 
+    if (map.has(y) && map.get(y).length > 0) {
+      var j = map.get(y).shift();
+      total += i + j;
+      continue;
+    }
 
-    if (map.get(val).length == 0) continue;
-    if (!map.has(pair)) continue;
-    if (map.get(pair).length == 0) continue;
-    if (pair === val && map.get(pair).length < 2) continue;
-
-    var k = map.get(val).shift();
-    var j = map.get(pair).shift();
-    total += k + j;
+    if (map.has(x)) {
+      map.get(x).push(i);
+      continue;
+    }
+ 
+    map.set(x, [i]);
   }
 
   return total;
